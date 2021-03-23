@@ -20,7 +20,6 @@ const feathersClient = feathers()
       ]
     }
   });
-
 // Setting up feathers-vuex
 const {
   makeServicePlugin,

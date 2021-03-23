@@ -10,7 +10,7 @@ class User extends BaseModel {
   static instanceDefaults() {
     return {
       email: '',
-      password: ''
+      password: '',
     }
   }
 }

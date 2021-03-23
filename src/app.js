@@ -8,6 +8,7 @@ const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
+const sequelize = require('./sequelize');
 
 const middleware = require('./middleware');
 const services = require('./services');
@@ -17,9 +18,9 @@ const channels = require('./channels');
 const authentication = require('./authentication');
 
 const app = express(feathers());
-
 // Load app configuration
 app.configure(configuration());
+app.configure(sequelize);
 // Enable security, CORS, compression, favicon and body parsing
 app.use(
   helmet({
@@ -44,6 +45,8 @@ app.configure(authentication);
 app.configure(services);
 // Set up event channels (see channels.js)
 app.configure(channels);
+// Set up database
+
 
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());

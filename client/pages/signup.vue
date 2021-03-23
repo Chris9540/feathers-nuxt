@@ -1,6 +1,6 @@
 <template>
-  <Page name="Login" route="/authenticate">
-    <Card name="Login" width="400px" :expand="false">
+  <Page name="Signup" route="/signup">
+    <Card name="Signup" width="400px">
       <template #body>
         <form>
           <ul>
@@ -15,8 +15,8 @@
               </InputControl>
             </li>
             <li class="f-cr p-1">
-              <Button color="success" @click.prevent="login" async>
-                Login
+              <Button color="success" @click.prevent="signup">
+                Signup
               </Button>
             </li>
           </ul>
@@ -29,26 +29,31 @@
 <script>
 import { mapActions } from 'vuex';
 export default {
-  name: 'Login',
-  data () {
+  data() {
     return {
-      isLoggingIn: false,
-      email: 'chris.9540@gmail.com',
-      password: '9540muffin',
+      email: '',
+      password: ''
     }
   },
   methods: {
+    ...mapActions('users', ['create']),
     ...mapActions('auth', ['authenticate']),
-    async login() {
+    async signup() {
       const credentials = { email: this.email, password: this.password };
-      this.isLoggingIn = true;
+      this.isSigningUp = true;
+      await this.create(credentials);
       await this.authenticate({ ...credentials, strategy: 'local' });
-      this.isLoggingIn = false;
-      this.$router.push('/');
-    },
+      this.isSigningUp = false;
+      this.$router.push('/secret');
+    }
   }
 }
 </script>
+
+<style>
+
+</style>
+
 
 
 
